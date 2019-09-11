@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
+import javax.persistence.ManyToOne;
 
 import org.springframework.hateoas.Identifiable;
 
@@ -25,13 +26,16 @@ public class Account implements Identifiable<Long> {
 	
 	private @Version @JsonIgnore Long version;
 
+	private @ManyToOne UserApp user;
+
 	private Account() {
 		this.priority = 1;
 	}
 
-	public Account(String name, int priority) {
+	public Account(String name, int priority, UserApp user) {
 		this.name = name;
 		this.priority = priority;
+		this.user = user;
 	}
 
 	@Override
@@ -42,13 +46,14 @@ public class Account implements Identifiable<Long> {
 		return Objects.equals(id, account.id) &&
 			Objects.equals(name, account.name) &&
 			Objects.equals(priority, account.priority) &&
-			Objects.equals(version, account.version);
+			Objects.equals(version, account.version) &&
+			Objects.equals(user, account.user);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, name, priority, version);
+		return Objects.hash(id, name, priority, version, user);
 	}
 	
 	public Long getId() {
@@ -82,6 +87,14 @@ public class Account implements Identifiable<Long> {
 	public void setVersion(Long version) {
 		this.version = version;
 	}
+
+	public UserApp getUser() {
+		return user;
+	}
+
+	public void setUser(UserApp user) {
+		this.user = user;
+	}
 	
 	@Override
 	public String toString() {
@@ -90,6 +103,7 @@ public class Account implements Identifiable<Long> {
 			", name='" + name + '\'' +
 			", priority='" + priority + '\'' +
 			", version=" + version +
+			", user=" + user +
 			'}';
 	}
 }
