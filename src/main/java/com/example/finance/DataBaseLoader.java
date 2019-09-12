@@ -24,9 +24,9 @@ public class DataBaseLoader implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 
-		UserApp vanessa = this.users.save(new UserApp("vanessa","vos.campanha@gmail.com", "123",
+		UserApp vanessa = this.users.save(new UserApp("vanessa","teste@email.com", "123",
 							"ROLE_ADMIN"));
-		UserApp diogo = this.users.save(new UserApp("diogo", "diogonc@gmail.com", "123",
+		UserApp diogo = this.users.save(new UserApp("diogo", "test@email.com", "123",
 							"ROLE_USER"));
 
 		this.accounts.save(new Account("Nubank", 1, vanessa));
